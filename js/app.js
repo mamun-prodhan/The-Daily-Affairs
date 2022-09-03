@@ -14,7 +14,7 @@ const displayCategories = categories =>{
         const categoryDiv = document.createElement('li');
         categoryDiv.classList.add('nav-item');
         categoryDiv.innerHTML = `
-                      <a class="nav-link" onclick="newsLoader('${category.category_id}')" href="#">${category.category_name}</a>
+                      <a class="nav-link btn btn-outline-primary link-dark" onclick="newsLoader('${category.category_id}')" href="#">${category.category_name}</a>
         `;
         categoryContainer.appendChild(categoryDiv);
     })
@@ -35,24 +35,38 @@ const displayNews = newses =>{
         newsDiv.classList.add('row');
         newsDiv.classList.add('m-5');
         newsDiv.innerHTML = `
-                    <div class="col-md-3">
-                        <svg class="bd-placeholder-img img-fluid rounded-start" width="100%" height="250"
-                            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image"
-                            preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6"
-                                dy=".3em">Image</text>
-                        </svg>
+        <div class="col-md-3">
+        <img src="${news.thumbnail_url}" class="bd-placeholder-img img-fluid rounded-start" width="100%" height="250" alt="">
 
+    </div>
+    <div class="col-md-9">
+        <div class="card-body">
+            <h5 class="card-title">${news.title}</h5>
+            <p class="card-text text-muted">${news.details}</p>
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center me-5">
+                    <div>
+                        <img src="${news.author.img}" alt="image" style="width:40px;" class="rounded-pill">
                     </div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                        </div>
+                    <div class="ms-2">
+                        <p class="fw-semibold m-0">${news.author.name}</p>
+                        <small class="text-muted m-0">${news.author.published_date}</small>
                     </div>
+                </div>
+                <div class="d-flex ms-5 me-5">
+                    <div class="me-2">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div>
+                        <p>${news.total_view}</p>
+                    </div>
+                </div>
+                <div class="ms-5">
+                <button type="button" class="btn btn-primary">Read More</button>
+                </div>
+            </div>
+        </div>
+    </div>
         `;
         newsContainer.appendChild(newsDiv);
     })
