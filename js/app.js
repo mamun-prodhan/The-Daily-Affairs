@@ -42,7 +42,7 @@ const displayNews = newses =>{
     <div class="col-md-9">
         <div class="card-body">
             <h5 class="card-title">${news.title}</h5>
-            <p class="card-text text-muted">${news.details}</p>
+            <p class="card-text text-muted">${news.details.substring(0,300) + '...'}</p>
             <div class="d-flex align-items-center">
                 <div class="d-flex align-items-center me-5">
                     <div>
