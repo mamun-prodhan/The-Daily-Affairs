@@ -30,6 +30,7 @@ const newsLoader = async(categoryId) => {
 const displayNews = newses =>{
     console.log(newses);
     const newsContainer = document.getElementById('news-container');
+    newsContainer.textContent = '';
     newses.forEach(news =>{
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('row');
@@ -50,7 +51,7 @@ const displayNews = newses =>{
                     </div>
                     <div class="ms-2">
                         <p class="fw-semibold m-0">${news.author.name}</p>
-                        <small class="text-muted m-0">${news.author.published_date}</small>
+                        <small class="text-muted m-0">${news.author.published_date.substring(0,10)}</small>
                     </div>
                 </div>
                 <div class="d-flex ms-5 me-5">
