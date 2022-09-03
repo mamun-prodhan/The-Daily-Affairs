@@ -31,6 +31,16 @@ const displayNews = newses =>{
     console.log(newses);
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
+
+    // total news found message
+    // const newsFound = document.getElementById('found-message');
+    // newsFound.textContent = '';
+    // const newsFoundDiv = document.createElement('div');
+    // newsFoundDiv.innerHTML = `
+    // <p class="p-4 bg-primary p-2 text-dark bg-opacity-10">${newses.length} items found for category Entertainment</p>
+    // `
+    // newsFound.appendChild(newsFoundDiv);
+
     newses.forEach(news =>{
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('row');
