@@ -73,8 +73,8 @@ const displayNews = (newses, categoryName) => {
                         <img src="${news.author.img}" alt="image" style="width:40px;" class="rounded-pill">
                     </div>
                     <div class="ms-2">
-                        <p class="fw-semibold m-0">${news.author.name}</p>
-                        <small class="text-muted m-0">${news.author.published_date}</small>
+                        <p class="fw-semibold m-0">${news.author.name ? news.author.name : 'No Data Found'}</p>
+                        <small class="text-muted m-0">${news.author.published_date ? news.author.published_date : 'No Data Found'}</small>
                     </div>
                 </div>
                 <div class="d-flex ms-5 me-5">
@@ -82,7 +82,7 @@ const displayNews = (newses, categoryName) => {
                         <i class="fa-solid fa-eye"></i>
                     </div>
                     <div>
-                        <p>${news.total_view}</p>
+                        <p>${news.total_view ? news.total_view : 'No Data Found'}</p>
                     </div>
                 </div>
                 <div class="ms-5">
@@ -97,6 +97,7 @@ const displayNews = (newses, categoryName) => {
     // stop loader spinner
     toggleSpinner(false);
 }
+
 
 
 const loadNewsDetails = async id =>{
@@ -126,8 +127,8 @@ const displayNewsDetails = allNewsDetails =>{
                     <img src="${allNewsDetails[0].author.img}" alt="image" style="width:40px;" class="rounded-pill">
                 </div>
                 <div class="ms-2">
-                    <p class="fw-semibold m-0">${allNewsDetails[0].author.name}</p>
-                    <small class="text-muted m-0">${allNewsDetails[0].author.published_date}</small>
+                    <p class="fw-semibold m-0">${allNewsDetails[0].author.name ? allNewsDetails[0].author.name : 'No Data Found'}</p>
+                    <small class="text-muted m-0">${allNewsDetails[0].author.published_date ? allNewsDetails[0].author.published_date : 'No Data Found'}</small>
                 </div>
             </div>
             <div class="d-flex ms-5 me-5">
@@ -135,7 +136,7 @@ const displayNewsDetails = allNewsDetails =>{
                     <i class="fa-solid fa-eye"></i>
                 </div>
                 <div>
-                    <p>${allNewsDetails[0].total_view}</p>
+                    <p>${allNewsDetails[0].total_view ? allNewsDetails[0].total_view : 'No Data Found'}</p>
                 </div>
             </div>
           </div>
