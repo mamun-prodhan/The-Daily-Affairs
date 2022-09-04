@@ -14,32 +14,32 @@ const displayCategories = categories =>{
         const categoryDiv = document.createElement('li');
         categoryDiv.classList.add('nav-item');
         categoryDiv.innerHTML = `
-                      <a class="nav-link btn btn-outline-primary link-dark" onclick="newsLoader('${category.category_id}')" href="#">${category.category_name}</a>
+                      <a class="nav-link btn btn-outline-primary link-dark" onclick="newsLoader('${category.category_id}', '${category.category_name}')" href="#">${category.category_name}</a>
         `;
         categoryContainer.appendChild(categoryDiv);
     })
 }
 
-const newsLoader = async(categoryId) => {
+const newsLoader = async(categoryId, categoryName) => {
     const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
     const res = await fetch(url);
     const data = await res.json();
-    // console.log(data.data);
-    displayNews(data.data);
+    console.log(categoryName);
+    displayNews(data.data, categoryName);
 } 
-const displayNews = newses =>{
+const displayNews = (newses, categoryName) =>{
     console.log(newses);
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
 
     // total news found message
-    // const newsFound = document.getElementById('found-message');
-    // newsFound.textContent = '';
-    // const newsFoundDiv = document.createElement('div');
-    // newsFoundDiv.innerHTML = `
-    // <p class="p-4 bg-primary p-2 text-dark bg-opacity-10">${newses.length} items found for category Entertainment</p>
-    // `
-    // newsFound.appendChild(newsFoundDiv);
+    const newsFound = document.getElementById('found-message');
+    newsFound.textContent = '';
+    const newsFoundDiv = document.createElement('div');
+    newsFoundDiv.innerHTML = `
+    <p class="p-4 bg-primary p-2 text-dark bg-opacity-10"><span class="fw-bold">${newses.length}</span> items found for category <span class="fw-bold">${categoryName}</span> </p>
+    `
+    newsFound.appendChild(newsFoundDiv);
 
     newses.forEach(news =>{
         const newsDiv = document.createElement('div');
@@ -61,7 +61,7 @@ const displayNews = newses =>{
                     </div>
                     <div class="ms-2">
                         <p class="fw-semibold m-0">${news.author.name}</p>
-                        <small class="text-muted m-0">${news.author.published_date.substring(0,10)}</small>
+                        <small class="text-muted m-0">${news.author.published_date}</small>
                     </div>
                 </div>
                 <div class="d-flex ms-5 me-5">
