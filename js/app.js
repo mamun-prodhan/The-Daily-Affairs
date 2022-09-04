@@ -1,16 +1,16 @@
-const loadCategories = async() => {
+const loadCategories = async () => {
     const url = `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
     const data = await res.json();
     displayCategories(data.data.news_category);
-} 
+}
 
 loadCategories();
 
-const displayCategories = categories =>{
+const displayCategories = categories => {
     console.log(categories);
     const categoryContainer = document.getElementById('category-container');
-    categories.forEach(category =>{
+    categories.forEach(category => {
         const categoryDiv = document.createElement('li');
         categoryDiv.classList.add('nav-item');
         categoryDiv.innerHTML = `
@@ -20,7 +20,7 @@ const displayCategories = categories =>{
     })
 }
 
-const newsLoader = async(categoryId, categoryName) => {
+const newsLoader = async (categoryId, categoryName) => {
     //start loader spinner
     toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/news/category/${categoryId}`;
@@ -28,19 +28,19 @@ const newsLoader = async(categoryId, categoryName) => {
     const data = await res.json();
     console.log(categoryName);
     displayNews(data.data, categoryName);
-} 
+}
 
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById('loader');
-    if(isLoading){
+    if (isLoading) {
         loaderSection.classList.remove('d-none');
     }
-    else{
+    else {
         loaderSection.classList.add('d-none');
     }
 }
 
-const displayNews = (newses, categoryName) =>{
+const displayNews = (newses, categoryName) => {
     console.log(newses);
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
@@ -54,7 +54,7 @@ const displayNews = (newses, categoryName) =>{
     `
     newsFound.appendChild(newsFoundDiv);
 
-    newses.forEach(news =>{
+    newses.forEach(news => {
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('row');
         newsDiv.classList.add('m-5');
@@ -66,7 +66,7 @@ const displayNews = (newses, categoryName) =>{
     <div class="col-md-9">
         <div class="card-body">
             <h5 class="card-title">${news.title}</h5>
-            <p class="card-text text-muted">${news.details.substring(0,300) + '...'}</p>
+            <p class="card-text text-muted">${news.details.substring(0, 200) + '...'}</p>
             <div class="d-flex align-items-center">
                 <div class="d-flex align-items-center me-5">
                     <div>
@@ -86,7 +86,7 @@ const displayNews = (newses, categoryName) =>{
                     </div>
                 </div>
                 <div class="ms-5">
-                <button type="button" class="btn btn-primary">Read More</button>
+                <button onclick="loadNewsDetails('${news._id}')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal">Read More</button>
                 </div>
             </div>
         </div>
@@ -97,3 +97,53 @@ const displayNews = (newses, categoryName) =>{
     // stop loader spinner
     toggleSpinner(false);
 }
+
+
+const loadNewsDetails = async id =>{
+    const url = `https://openapi.programming-hero.com/api/news/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.data);
+    displayNewsDetails(data.data);
+    
+}
+
+const displayNewsDetails = allNewsDetails =>{
+    const newsDetails = document.getElementById('newsModal');
+    newsDetails.textContent = '';
+    const allNewsDetailsDiv = document.createElement('div');
+    allNewsDetailsDiv.innerHTML = `
+    <div>
+            <img src="${allNewsDetails[0].image_url}" class="bd-placeholder-img card-img-top img-fluid rounded-start" width="100%" height="180" alt="">
+      
+        <div class="card-body mt-3">
+          <h5 class="card-title">'${allNewsDetails[0].title}'</h5>
+          <p class="card-text mt-1">${allNewsDetails[0].details}</p>
+
+          <div class="d-flex">
+            <div class="d-flex align-items-center">
+                <div>
+                    <img src="${allNewsDetails[0].author.img}" alt="image" style="width:40px;" class="rounded-pill">
+                </div>
+                <div class="ms-2">
+                    <p class="fw-semibold m-0">${allNewsDetails[0].author.name}</p>
+                    <small class="text-muted m-0">${allNewsDetails[0].author.published_date}</small>
+                </div>
+            </div>
+            <div class="d-flex ms-5 me-5">
+                <div class="me-2">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <div>
+                    <p>${allNewsDetails[0].total_view}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    `;
+
+    newsDetails.appendChild(allNewsDetailsDiv);
+    
+}
+
