@@ -148,3 +148,5 @@ const displayNewsDetails = allNewsDetails =>{
     
 }
 
+newsLoader('01', 'Breaking News');
+
